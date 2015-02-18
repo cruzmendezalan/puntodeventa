@@ -1,0 +1,55 @@
+<?php $__env->startSection('titulo'); ?>
+    Login
+ 
+<?php $__env->stopSection(); ?>
+ 
+<?php $__env->startSection('mensaje'); ?>
+ 
+    Login con laravel
+ 
+<?php $__env->stopSection(); ?>
+ 
+ 
+<?php $__env->startSection('contenido'); ?>
+ 	<section class="container">
+ 		<div class="login">
+
+ 		<?php echo Form::open( array('url' => 'login')); ?>
+
+            <!-- Revisemos si tenemos errores de login -->
+            <?php if(Session::has('error_login')): ?>
+            <span class="error">Usuario o contraseña incorrectos.</span>
+            <?php endif; ?>
+     
+            <?php echo Form::label('usuario', 'Usuario'); ?>
+
+     
+            <?php echo Form::text('username'); ?>
+
+     
+            <?php echo Form::label('password', 'Password'); ?>
+
+     
+            <?php echo Form::password('password'); ?>
+
+     
+            <br />
+            <?php echo Form::submit('Iniciar sesión'); ?>
+
+ 
+        <?php echo Form::close(); ?>
+
+ 
+        <!--si intentan ir a la home sin inciar sesión o han cerrado sesión mostramos un mensaje-->
+        <?php if(Session::has('mensaje')): ?>
+ 
+            <div id="flash_notice"><?php echo Session::get('mensaje'); ?></div>
+                     
+         <?php endif; ?>
+ 
+    </div>
+ 	</section>
+     
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.login', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

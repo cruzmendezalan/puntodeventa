@@ -1,0 +1,9 @@
+<!-- edicion.blade.php -->
+
+
+
+<?php $__env->startSection('contenido'); ?>
+		<?php echo $__env->yieldContent('tabla'); ?>	
+		<?php echo $__env->yieldContent('cuadrodeedicion'); ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

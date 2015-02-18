@@ -1,0 +1,27 @@
+<?php $__env->startSection('contenido'); ?>
+	<h1>Bienvenido a la eliminacion de usuarios</h1>
+	<div class="formulario">
+	<?php echo Form::open(array('url' => 'bajaproductos')); ?>
+
+	<?php if(Session::has('error_login')): ?>
+        <span class="error">Inicia session para continuar</span>
+    <?php endif; ?>
+    <?php foreach($productos as $producto): ?>
+        <p>Producto : <a href="" title=""><?php echo $producto->nombre; ?></a> </p>
+        <?php echo Form::hidden('id',$producto->id); ?>
+
+        <?php echo Form::submit('Eliminar'); ?>
+
+    <?php endforeach; ?>
+
+
+        <?php if(Session::has('mensaje')): ?>
+ 
+            <div id="flash_notice"><?php echo Session::get('mensaje'); ?></div>
+                     
+         <?php endif; ?>
+    <?php echo Form::close(); ?>
+
+    </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,162 @@
+<!-- edicionProductos.blade.php -->
+
+
+<?php if(Session::has('error_login')): ?>
+        <span class="error">Inicia session para continuar</span>
+<?php endif; ?>
+<?php $__env->startSection('tabla'); ?>
+<div class="productos">
+	<?php if(Session::has('mensaje')): ?>
+        <div id="flash_notice"><?php echo Session::get('mensaje'); ?></div>
+    <?php endif; ?>
+	<div class="productosSetGetDel scroll">
+		<table>
+			<thead>
+				<tr>
+					<th class="cell espacio">Nombre</th>
+					<th class="cell espacio">Descripcion</th>
+					<th class="cell espacio">Precio</th>
+					<th class="cell espacio">Editar</th>
+					<th class="cell espacio">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($productos as $producto ): ?>
+				<tr>
+					<td class="contenidocelda"><?php echo $producto->nombre; ?></td>
+					<td class="contenidocelda"><?php echo $producto->descripcion; ?></td>
+					<td class="contenidocelda"><?php echo $producto->precio; ?></td>
+					<td class="botonEditar"><?php echo Form::open(array('url' => 'editarproducto')); ?> <?php echo Form::hidden('id',$producto->id); ?><?php echo Form::submit('Editar'); ?><?php echo Form::close(); ?></td>
+					<td class="botonEliminar">
+						<?php echo Form::open(array('url' => 'eliminarproducto')); ?>
+
+						<?php echo Form::hidden('id',$producto->id); ?>
+
+						<?php echo Form::submit('Eliminar'); ?>
+
+						<?php echo Form::close(); ?>
+
+					</td>
+				</tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+	<div class="cuadroedicion">
+	<h3>Agregar Productos</h3>
+		<div class="formulario">
+			<table>
+				<?php echo Form::open(array('url' => 'nuevoproducto')); ?>
+
+				<tbody>
+					<tr>
+						<td><?php echo Form::label('nombre', 'Nombre :'); ?></td>
+						<td> <?php echo Form::text('nombre'); ?></td>
+						<td><?php echo Form::label('codigo','Codigo :'); ?></td>
+						<td> <?php echo Form::text('id'); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo Form::label('marca','Marca :'); ?></td>
+						<td><?php echo Form::select('marca', $marcasarr); ?></td>
+
+						<td><?php echo Form::label('descripcion', 'Descripcion'); ?></td>
+						<td><?php echo Form::text('descripcion'); ?></td>
+					</tr>
+					<tr>
+						<td><?php echo Form::label('iva', 'IVA :'); ?></td>
+						<td><?php echo Form::number('iva'); ?></td>
+
+						<td><?php echo Form::label('precio','Precio :'); ?></td>
+						<td><?php echo Form::number('precio'); ?></td>
+					</tr>
+					<tr>
+						<td colspan="4"><?php echo Form::submit('Guardar',array('class'=>'btn')); ?> <?php echo Form::close(); ?></td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div>
+	</div>
+</div>
+<div class="productos">
+	<div class="usuariosSetGetDel scroll">
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Contraseña</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($users as $usuario ): ?>
+				<tr>
+					<td class="contenidocelda"><?php echo $usuario->username; ?></td>
+					<td class="contenidocelda">******</td>
+					<td class="botonEditar"><?php echo Form::open(array('url' => 'editarproducto')); ?> <?php echo Form::hidden('id',$usuario->id); ?><?php echo Form::hidden('id',1); ?><?php echo Form::submit('Editar'); ?><?php echo Form::close(); ?></td>
+					<td class="botonEliminar"><?php echo Form::hidden('id',$usuario->id); ?><?php echo Form::hidden('id',2); ?><?php echo Form::submit('Eliminar'); ?><?php echo Form::close(); ?></td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+	<div class="cuadroedicion">
+	<h3>Agregar Usuarios</h3>
+		<table>
+			<tbody>
+			<?php echo Form::open(( array('url' => 'nuevousuario') )); ?>
+
+				<tr>
+					<td><?php echo Form::label('nombre', 'Nombre :'); ?></td>
+					<td><?php echo Form::text('nombre'); ?></td>
+				</tr>
+				<tr>
+					<td><?php echo Form::label('password', 'Contraseña :'); ?></td>
+					<td><?php echo Form::password('password'); ?></td>
+				</tr>
+				<tr>
+					<td><?php echo Form::label('correo', 'Email :'); ?></td>
+					<td><?php echo Form::email('correo'); ?></td>
+				</tr>
+				<tr>
+					<td><?php echo Form::submit('Agregar'); ?></td>
+				</tr>
+			<?php echo Form::close(); ?>
+
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="productos">
+	
+	<div class="marcasSetGetDel scroll">
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre de Marca</th><th>Descripcion</th><th>Editar</th><th>Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach($marcas as $marca ): ?>
+				<tr><td class="contenidocelda"><?php echo $marca->nombre; ?></td><td class="contenidocelda"><?php echo $marca->descripcion; ?></td><td class="botonEditar"><?php echo Form::open(array('url' => 'editarmarca')); ?> <?php echo Form::hidden('id',$marca->id); ?><?php echo Form::hidden('id',1); ?><?php echo Form::submit('Editar'); ?><?php echo Form::close(); ?></td><td class="botonEliminar"><?php echo Form::hidden('id',$marca->id); ?><?php echo Form::hidden('id',2); ?><?php echo Form::submit('Eliminar'); ?><?php echo Form::close(); ?></td></tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="cuadroedicion">
+	<h3>Agregar Marcas</h3>
+		<table>
+				<?php echo Form::open(array('url' => 'nuevamarca')); ?>
+
+				<tbody>
+					<tr><td><?php echo Form::label('nombre', 'Nombre :'); ?></td><td> <?php echo Form::text('nombre'); ?></td></tr>
+					<tr><td><?php echo Form::label('descripcion', 'Descripcion'); ?></td><td><?php echo Form::text('descripcion'); ?></td></tr>
+					<tr><td><?php echo Form::label('codigo', 'Codigo :'); ?></td><td> <?php echo Form::text('id'); ?></td></tr>
+					<tr><td><?php echo Form::submit('Agregar'); ?></td></tr>
+				</tbody>
+			</table>
+	</div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.edicion', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

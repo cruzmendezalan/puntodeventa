@@ -1,0 +1,104 @@
+<?php $__env->startSection('contenido'); ?>
+	
+			<div class="barraDeProductos">
+				<div class="titulo">
+					<p>Productos</p>
+					<form action="#">
+						<input type="text" id="item" class="itemBusqueda"> 
+					</form>
+				</div>
+				<div class="scroll">
+
+					<table>
+						<tbody>
+							<?php foreach($productos as $producto ): ?>
+								<tr>
+									<td class="contenidocelda" onclick="cuantosElementos(this); generaSubtotal();" vid="<?php echo $producto->id; ?>" valorunitario="<?php echo $producto->precio; ?>"><?php echo $producto->nombre; ?>, <?php echo $producto->descripcion; ?>
+
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	<div class="barraDerecha">
+		<div class="barraDeVentaT">	
+			<div class="titulo">
+				<p>Nota de Venta</p>
+				<div class="tablaAlCentro">
+					<table>
+					<tbody>
+						<tr>
+							<td>
+							     <label for="fecha">Fecha :</label>
+							</td>
+							<td>
+								<input type="text"  class="resaltadoRojo" value="<?php echo $hoy; ?>" disabled="true">
+							</td>
+							<td>
+								<label for="folio">Folio :</label>
+							</td>
+							<td>
+					            <input type="text" value="<?php echo $folio; ?>" class="resaltadoRojo" disabled="true"> 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+		</div>
+			<div class=" barraDeVenta scroll">
+				<?php echo Form::open(array('url' => '#')); ?>
+
+				<table>
+				<thead>
+					<tr>
+						<th class="cantidad">Cantidad</th>
+						<th class="articulo">Articulo</th> 
+						<th class="valorunitario">Valor Unit.</th>
+						<th class="importe">Importe</th></tr>
+				</thead>
+				<tbody id="articulosDeVenta">
+				</tbody>
+				</table>
+				<?php echo Form::close(); ?>
+
+			</div>		
+		
+		
+		<div class="barraDeTotal">
+			<div class="tablaTotal">
+				<table>
+				<form action="#">
+					<table>
+						<tr>
+							<td><label for="subtotal" class="inputTotales">Subtotal:</label></td>
+							<td><input class="inputTotal textocentrado" type="text" id="subtotal" disabled="true" value="0.00"></td>
+						</tr>
+						<tr>
+							<td><label for="iva" class="inputTotales">IVA  %:</label></td>
+							<td><input class="inputTotal textocentrado" type="text" id="iva" value="16" onchange="generaSubtotal();"></td>
+						</tr>
+						<tr>
+							<td><label for="total" class="inputTotales">Total:</label></td>
+							<td><input class="inputTotal textocentrado" type="text" id="total" disabled="true" value="0.00"></td>
+						</tr>
+						<tr>
+							<td><label for="vendedor" class="inputTotales">Vendedor:</label></td>
+							<td><input class="inputTotal" type="text"  value="<?php echo $usuario; ?>" disabled="true"></td>
+						</tr>
+						<tr>
+							<td colspan="2" rowspan="2">
+								<button class="btn-submit" onclick="ajax();">Vender</button>
+							</td>	
+						</tr>
+					</table>	
+				</form>
+			</table>
+			</div>
+		</div>
+	</div>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

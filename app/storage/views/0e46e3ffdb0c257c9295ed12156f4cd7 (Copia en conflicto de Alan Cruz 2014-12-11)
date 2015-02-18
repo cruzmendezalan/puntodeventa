@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html lang="es-ES">
+    <head>
+        <meta charset="UTF-8">
+        <!--nuestro título podrá ser modificado-->
+        <title><?php echo $__env->yieldContent('titulo'); ?></title>
+        <?php echo HTML::style('css/login.css'); ?>
+
+    </head>
+    <body>
+ 
+        <h1><?php echo $__env->yieldContent('mensaje'); ?></h1>
+ 
+        <div class="wrapper">
+            <div>
+                <?php echo $__env->yieldContent('contenido'); ?>
+            </div>
+ 
+        </div>
+    </body>
+</html>

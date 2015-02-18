@@ -1,0 +1,52 @@
+<!-- LAYOUT PRINCIPAL, ESQUELETO DEL INDEX (ALGO PARECIDO A AJAX) -->
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="_token" content="<?php echo csrf_token(); ?>" />
+	<title>Punto de Venta</title>
+	<?{{ 
+			echo HTML::style('css/comun.css'); 
+			echo HTML::style('css/barranavegacion.css');
+															}}?>
+</head>
+<body>
+	<? if(Auth::user())// Si el usuario ya esta logueado. 
+						{?> 
+	<h1>Punto de Venta</h1> 
+	<div class"container">
+		<ul class="nav">
+			<li><? {{ echo HTML::link('/', 'Ventas'); }} ?></li>
+			<li>
+				<a href="#">Reportes</a>
+			</li>
+			<li><a href="#">Administracion</a>
+				<ul>
+					<li><a href="altaproductos">Alta de Productos</a></li>
+					<li><a href="altamarcas">Alta Marcas</a></li>
+					<li><a href="altausuarios">Alta Usuarios</a></li>
+					<li><a href="bajausuarios">Baja Usuarios</a></li>
+					<li><a href="bajaproductos">Bajas Productos</a></li>
+					<li><a href="edicion">Edicion</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Contacto</a></li>
+			<li><? {{ echo HTML::link('logout', 'Cerrar Sesión'); }} ?></li>
+
+		</ul>
+	</div>	
+	<div>
+		<p>  </p> 
+	</div>
+	<div class="cuerpo">
+		 <?php echo $__env->yieldContent('contenido'); ?> 
+	</div>
+	<? }else{ //si no esta logueado, lo redirecionamos a login
+		Redirect::to('login');
+	}
+	?>
+	<?
+		{{ echo HTML::script('js/ventaActual.js'); }}
+	?>
+</body>
+</html>

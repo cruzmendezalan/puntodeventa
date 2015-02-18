@@ -1,0 +1,189 @@
+<?php $__env->startSection('contenido'); ?>
+	<h1>Reporte Ventas</h1>
+	<div class="cabecerareportes">
+		<div class="reportes reportegenerales login">
+			<?php echo Form::open(array('url'=>'reportetipo')); ?>
+
+			<table class="tablareportes">
+				<tr>
+					<td colspan="2">
+						<h1>Buscar Nota</h1>
+					</td>
+				</tr>
+				<tr>
+					<td class="tdlabelreportes">
+						<?php echo Form::label('folio','Folio de Venta:'); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo Form::text('folio',null,array('class'=>'tdinputsreportes')); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td class="tdlabelreportes">
+						<?php echo Form::label('vendedor','Vendedor'); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo Form::text('vendedor',null,array('class'=>'tdinputsreportes')); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo Form::submit('Buscar',array('class'=>'btn')); ?>
+
+					</td>
+				</tr>
+			</table>
+			<?php echo Form::close(); ?>
+
+		</div>
+		<div class="reportes">
+			
+			<?php echo Form::open(array('url'=>'reportefecha')); ?>
+
+			<table class="tablareportes">
+				<tr>
+					<td colspan="2">
+						<h1>Listar Ventas</h1>
+					</td>
+				</tr>
+				<tr>
+					<td class="tdlabelreportes">
+						<?php echo Form::label('reportepredefinido','Reportes Predefinidos:'); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<?php echo Form::select('predefinido', array('hoy' => 'Hoy', 'ayer' => 'Ayer', 'semanal' => 'Semanal'),null,array('class'=>'tdinputsreportes')); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td class="tdlabelreportes">
+						<?php echo Form::label('desde','Desde:'); ?>
+
+					</td>
+					<td>
+						<?php echo Form::label('hasta','Hasta:'); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<?php echo Form::input('date', 'desde'); ?>
+
+					</td>
+					<td>
+						<?php echo Form::input('date', 'hasta'); ?>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<?php echo Form::submit('Buscar',array('class'=>'btn')); ?>
+
+					</td>
+				</tr>
+			</table>
+			<?php echo Form::close(); ?>
+
+		</div>
+		<div class="reportes">
+			<?php echo Form::open(array('url'=>'reportefecha')); ?>
+
+			<table class="tablareportes">
+				<tr>
+					<td colspan="2">
+						<h1>Datos de Reportes</h1>
+					</td>
+				</tr>
+				
+			</table>
+			<?php echo Form::close(); ?>
+
+		</div>
+		
+	</div>
+	<?php if(isset($total)): ?>
+	<div id="table" class="reportegeneral">
+		<div class="caption">Lista de ventas realizadas en el periodo especificado:</div>
+		<table>
+			<thead>
+			<div class="header-row row">
+				<tr>
+					<th class="cell espacio">Folio</th>
+					<th class="cell espacio">Fecha</th>
+					<th class="cell espacio">Subtotal</th>
+					<th class="cell espacio">Descuento</th>
+					<th class="cell espacio">Total</th>
+					<th class="cell espacio">Vendedor</th>
+				</tr>
+			</div>
+			</thead>
+			<tbody style="background-color:white;">
+				<?php foreach($resultados as $venta): ?>
+					<tr class="reportesfila">
+						<td class="cell espacio"><?php echo $venta->id; ?></td>
+						<td class="cell espacio"><?php echo $venta->created_at; ?></td>
+						<td class="cell espacio"><?php echo $venta->subtotal; ?></td>
+						<td class="cell espacio"><?php echo $venta->descuento; ?></td>
+						<td class="cell espacio"><?php echo $venta->total; ?></td>
+						<td class="cell espacio"> ... </td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class="caption">Detalles de ventas:</div>
+		<table>
+			<thead>
+			<div class="header-row row">
+				<tr>
+					<th class="cell espacio">Numero de Ventas</th>
+					<th class="cell espacio">Total de Descuentos</th>
+					<th class="cell espacio">Total de ventas</th>
+				</tr>
+			</div>
+			</thead>
+			<tbody style="background-color:white;">
+						<td class="cell espacio"><?php echo $numventas; ?></td>
+						<td class="cell espacio"><?php echo $descuento; ?></td>
+						<td class="cell espacio"><?php echo $total; ?></td>
+			</tbody>
+		</table>	
+	</div>
+	<?php endif; ?>
+	<?php if(isset($ventaunica)): ?>
+		<div id="table" class="reportegeneral">
+			<div  class="caption">Venta con FOLIO: <?php echo $ventaunica[0]->venta_id; ?></div>
+			<table>
+				<thead>
+				<div class="header-row row">
+					<tr>
+						<th class="cell espacio">Cantidad</th>
+						<th class="cell espacio">Subtotal</th>
+						<th class="cell espacio">Producto</th>
+					</tr>
+				</div>
+				</thead>
+				<tbody style="background-color:white;">
+					<?php foreach($ventaunica as $concepto): ?>
+					<tr>
+						<td class="cell espacio"><?php echo $concepto->cantidad; ?></td>
+						<td class="cell espacio"><?php echo $concepto->importe; ?></td>
+						<td class="cell espacio"><?php echo $concepto->producto_id; ?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+	<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

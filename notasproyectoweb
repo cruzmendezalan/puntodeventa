@@ -1,0 +1,1 @@
+ALTER TABLE bands MODIFY country_code VARCHAR(2);

@@ -1,0 +1,147 @@
+<?php $__env->startSection('contenido'); ?>
+	
+		<div class="barraizquierda">	
+			<div class="barraDeVentaT caption">	
+				<div class="tablaAlCentro">
+					<table>
+						
+						<tbody>
+							<h2 class="notadeventatitulo">Productos</h2>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="barraDeProductos">
+				<div class="scroll table">
+					<table>
+						<thead>
+							<tr class="busquedatr">
+								<th class="header-row busquedath">
+									<input type="text" class="busqueda" onkeypress="busca(this.value)" id="objetobuscado">
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach($productos as $producto ): ?>
+								<tr class="row">
+									<td class="cell primary productoslista" onclick="cuantosElementos(this); generaSubtotal();" vid="<?php echo $producto->id; ?>" valorunitario="<?php echo $producto->precio; ?>" ><?php echo $producto->nombre; ?>, <?php echo $producto->descripcion; ?>
+
+									</td>
+								</tr>
+							<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	<div class="barraDerecha">
+		<div class="barraDeVentaT caption">	
+				<div class="tablaAlCentro">
+					<table>
+						<tbody>
+							<h2 class="notadeventatitulo">Nota de Venta</h2>
+						</tbody>
+					</table>
+			</div>
+		</div>
+			<div class="barraDeVenta scroll">
+				<div id="mensaje"></div>
+				<?php echo Form::open(array('url' => '#')); ?>
+
+				<table id="tablanotadeventa">
+				<thead>
+					<tr>
+						<th class="cantidad header-row">Cantidad</th>
+						<th class="articulo header-row">Articulo</th> 
+						<th class="valorunitario header-row">Valor Unit.</th>
+						<th class="importe header-row">Importe</th></tr>
+				</thead>
+				<tbody id="articulosDeVenta">
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					<tr><td>.</td><td></td><td></td><td></td></tr>
+					
+				</tbody>
+				</table>
+				<?php echo Form::close(); ?>
+
+			</div>		
+	</div>
+	<div class="barraDeTotal">
+			<div class="barraDeVentaT caption">	
+				<div class="tablaAlCentro">
+					<table>
+						<tbody>
+							<h2 class="notadeventatitulo">Descripcion</h2>
+						</tbody>
+					</table>
+			</div>
+			</div>
+			<div>
+				<form action="#">
+					<table class="tabladetotales">
+						<tr>
+								<td class="etiquetas">
+							    	<label for="fecha">Fecha :</label>
+								</td>
+								<td class="inputs">
+									<input type="text" value="<?php echo $hoy; ?>" disabled="true" class="textocentrado">
+								</td>
+						</tr>
+						<tr>
+								<td class="etiquetas">
+									<label for="folio">Folio :</label>
+								</td>
+								<td class="inputs">
+					            	<input id="folio" type="text" value="<?php echo $folio; ?>" disabled="true" class="textocentrado" > 
+								</td>
+						</tr>
+						<tr>
+							<td class="etiquetas"><label for="subtotal">Subtotal:</label></td>
+							<td class="inputs"><input class="textocentrado" type="text" id="subtotal" disabled="true" value="0.00"></td>
+						</tr>
+						<tr>
+							<td class="etiquetas"><label for="descuento" class="labelComun">Descuento:</label></td>
+							<td class="inputs"><input class="textocentrado" type="text" id="descuento"  value="0" onchange="generaSubtotal();"></td>
+						</tr>
+						<tr>
+							<td class="etiquetas"><label for="iva" class="labelComun">IVA  %:</label></td>
+							<td class="inputs"><input class="textocentrado" type="text" id="iva" value="16" onchange="generaSubtotal();"></td>
+						</tr>
+						
+						<tr>
+							<td class="etiquetas"><label for="total" class="labelComun">Total:</label></td>
+							<td class="inputs"><input class="textocentrado" type="text" id="total" disabled="true" value="0.00"></td>
+						</tr>
+						<tr>
+							<td class="etiquetas"><label for="vendedor">Vendedor:</label></td>
+							<td class="inputs"><input class="textocentrado" type="text"  value="<?php echo $usuario; ?>" disabled="true"></td>
+						</tr>
+						<tr class="textocentrado">
+							<td colspan="2"><button onclick="regenera();" class="btncancelar">Cancelar</button><button onclick="ajax();" class="btn">Vender</button></td>	
+						</tr>
+					</table>	
+				</form>
+			</div>
+				
+		</div>
+
+		<div>
+			<p id="coincidir">
+				
+			</p>
+		</div>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

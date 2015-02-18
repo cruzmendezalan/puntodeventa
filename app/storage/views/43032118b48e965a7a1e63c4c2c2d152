@@ -1,0 +1,39 @@
+<?php $__env->startSection('contenido'); ?>
+    <div class="formulario">
+	<?php echo Form::open(array('url' => 'altaproductos')); ?>
+
+		<?php if(Session::has('error_login')): ?>
+            <span class="error">Inicia session para continuar</span>
+        <?php endif; ?>
+        <h1>Bienvenido a la creacion de nuevos productos</h1>
+
+        <?php echo Form::label('nombre', 'Nombre :'); ?>
+
+        	<?php echo Form::text('nombre'); ?>
+
+     	<br>
+        <?php echo Form::label('descripcion', 'Descripción :'); ?>
+
+     		<?php echo Form::text('descripcion'); ?>
+
+		<br>
+     	<?php echo Form::label('iva', 'IVA :'); ?>
+
+     		<?php echo Form::number('iva'); ?>
+
+		<br>
+     	<?php echo Form::label('preciodecompra','Precio de compra'); ?>
+
+            <?php echo Form::number('preciodecompra'); ?>
+
+            <br><br>
+        <?php echo Form::submit('Guardar'); ?>
+
+        <?php if(Session::has('mensaje')): ?>
+ 
+            <div id="flash_notice"><?php echo Session::get('mensaje'); ?></div>
+                     
+         <?php endif; ?>
+        </div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.index', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,59 @@
+<!-- LAYOUT PRINCIPAL, ESQUELETO DEL INDEX (ALGO PARECIDO A AJAX) -->
+<!doctype html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="_token" content="<?php echo csrf_token(); ?>" />
+	<title>Punto de Venta</title>
+	<link rel="shortcut icon" href="<?php echo asset('favicon.ico'); ?>">
+	<?{{ 
+			// echo HTML::favicon('favicon.ico');
+			echo HTML::style('css/comun.css'); 
+			echo HTML::style('css/barranavegacion.css');
+			echo HTML::style('css/tablas.css');
+															}}?>
+</head>
+<body onload="paginacargada()">
+	<? if(Auth::user())// Si el usuario ya esta logueado. 
+						{?> 
+	<h1>Punto de Venta</h1> 
+	<div class"container">
+		<ul class="nav">
+			<li><?  {{ echo HTML::link('/', 'Principal', array('class' => 'principalimagen')); }} ?> 
+			</li>
+			<li>
+				<?  {{ echo HTML::link('/reportes', 'Reportes', array('class' => 'reportesimagen')); }} ?>
+				<!-- <a href="#">Reportes</a> -->
+			</li>
+				<li> 
+				<?  {{ echo HTML::link('/edicion', 'Administracion', array('class' => 'administracionimagen')); }} ?>
+				<!-- <a href="#">Administracion</a> -->
+				<!-- <ul>
+					<li><a href="reportes">Reportes</a></li>
+					<li><a href="edicion">Edicion</a></li>
+				</ul> -->
+			</li>
+			<li>
+				<?  {{ echo HTML::link('/', 'Contacto', array('class' => 'contactoimagen')); }} ?>
+				<!-- <a href="#">Contacto</a> -->
+			</li>
+			<li>
+				<?  {{ echo HTML::link('logout', 'Cerrar Sesion', array('class' => 'salirimagen')); }} ?>
+			</li>
+
+		</ul>
+	</div>	
+	<div> 
+	</div>
+	<div class="cuerpo">
+		 <?php echo $__env->yieldContent('contenido'); ?> 
+	</div>
+	<? }else{ //si no esta logueado, lo redirecionamos a login
+		Redirect::to('login');
+	}
+	?>
+	<?
+		{{ echo HTML::script('js/ventaActual.js'); }}
+	?>
+</body>
+</html>
